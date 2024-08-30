@@ -7,21 +7,26 @@ load_dotenv()
 
 
 def get_weather(city):
-    api_key = os.getenv('API_KEY')  # Retrieve the API key from the environment
-    if not api_key:
-        return {"error": "API key not found. Please check your .env file."}
-
+    api_key = os.getenv('API_KEY')
     base_url = "http://api.openweathermap.org/data/2.5/weather"
+    forecast_url = "http://api.openweathermap.org/data/2.5/forecast"
+
+
     params = {
         'q': city,
         'appid': api_key,
         'units': 'metric'
     }
-    response = requests.get(base_url, params=params)
-    return response.json()
+    weather_response = requests.get(base_url, params=params)
 
 
-if __name__ == '__main__':
-    city = 'New York'
-    weather_data = get_weather(city)
-    print(weather_data)
+    forecast_response = requests.get(forecast_url, params=params)
+
+    if weather_response.status_code != 200 or forecast_response.status_code != 200:
+        return {'error': 'City not found. Please check the city name.'}
+
+    weather_data = weather_response.json()
+    forecast_data = forecast_response.json()
+
+    return {'current': weather_data, 'forecast': forecast_data}
+

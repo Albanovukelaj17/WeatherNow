@@ -1,7 +1,15 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template, request
+from datetime import datetime
 from api.weather_api import get_weather
 
 app = Flask(__name__)
+
+# Define the datetimeformat filter
+def datetimeformat(value, format='%H:%M:%S'):
+    return datetime.fromtimestamp(value).strftime(format)
+
+# Register the filter with Jinja2
+app.jinja_env.filters['datetimeformat'] = datetimeformat
 
 @app.route('/')
 def index():
@@ -12,4 +20,4 @@ def index():
     return render_template('index.html', city=city, weather=weather)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5005)
+    app.run(debug=True, port=5007)
