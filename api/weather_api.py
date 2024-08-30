@@ -22,6 +22,6 @@ def get_weather(city):
 
 
 if __name__ == '__main__':
-    city = 'London'
+    city = 'New York'
     weather_data = get_weather(city)
     print(weather_data)
