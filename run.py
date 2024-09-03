@@ -52,4 +52,4 @@ def weather_map():
     return render_template('weather_map.html', api_key=api_key)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5015)
+    app.run(debug=True, port=5016)

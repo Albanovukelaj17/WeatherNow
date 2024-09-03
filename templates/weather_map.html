@@ -8,11 +8,19 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
-    <h1>Weather Map</h1>
-    <div id="map" style="height: 500px;"></div>
+    <h1 style="text-align: center;">Weather Map</h1>
+
+    <h2>Heat map</h2>
+    <div id="map_heat" style="height: 600px; width: 80%; align-self: center"></div>
+
+    <h2>Precipitations, Clouds, Wind Map</h2>
+    <div id="map_rest" style="height: 600px; width: 80%"></div>
+    <a href="{{ url_for('index') }}">back start page</a>
+
     <script>
         var api_key = "{{ api_key }}";
     </script>
+
     <script src="{{ url_for('static', filename='functionality/weather_map.js') }}"></script>
 </body>
 </html>
