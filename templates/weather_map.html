@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Now</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+    <h1>Weather Map</h1>
+    <div id="map" style="height: 500px;"></div>
+    <script>
+        var api_key = "{{ api_key }}";
+        console.log("API Key:", api_key);   //debug web develop
+        var map = L.map('map').setView([51.505, -0.09], 5);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var temperatureLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${api_key}`, {
+            maxZoom: 19,
+            opacity: 0.5
+        }).addTo(map);
+
+        var precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${api_key}`, {
+            maxZoom: 19,
+            opacity: 0.5
+        });
+
+        var baseLayers = {
+            "Temperature": temperatureLayer,
+            "Precipitation": precipitationLayer
+        };
+
+        L.control.layers(baseLayers).addTo(map);
+    </script>
+</body>
+</html>

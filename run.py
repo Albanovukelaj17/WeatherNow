@@ -7,13 +7,13 @@ from collections import defaultdict
 from datetime import datetime
 from utils.data_processing import group_weather_by_day
 
-# Load environment variables from .env
+
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', 'your_default_secret_key')
+app.secret_key = os.getenv('SECRET_KEY', '')
 
-# Define the datetimeformat filter
+
 def datetimeformat(value, format='%H:%M:%S'):
     return datetime.fromtimestamp(value).strftime(format)
 
@@ -46,5 +46,10 @@ def remove_favorite(city):
     session['favorites'].remove(city)
     return redirect(url_for('index'))
 
+@app.route('/weather-map')
+def weather_map():
+    api_key = os.getenv('API_KEY')
+    return render_template('weather_map.html', api_key=api_key)
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5011)
+    app.run(debug=True, port=5012)
