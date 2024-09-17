@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *.log
-
+node_modules
 # Environment Variables
 .env
 

@@ -24,7 +24,25 @@
         <table>
             {% for date, hours in grouped_weather.items() %}
             <tr>
-                <th colspan="{{ hours|length }}">{{ date }}</th>
+                <th colspan="{{ hours|length }}">
+                    <span class="weekday">
+                        {% set day = date.split('-')[2] %}
+                        {% set month = date.split('-')[1] %}
+                        {% set year = date.split('-')[0] %}
+
+                        {# Display "Today" for the first day, "Tomorrow" for the second day, and the actual weekday for the rest #}
+                        {% if loop.index == 1 %}
+                            Today
+                        {% elif loop.index == 2 %}
+                            Tomorrow
+                        {% else %}
+                            {% set day_num = date.split('-')|join('')|int %}
+                            {% set weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
+                            {{ weekdays[(day_num % 7)] }}
+                        {% endif %}
+                    </span>
+                    <span class="date">{{ day }}/{{ month }}/{{ year }}</span>
+                </th>
             </tr>
             <tr>
                 {% for hour in hours %}
