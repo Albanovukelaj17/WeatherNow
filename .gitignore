@@ -2,12 +2,12 @@
 __pycache__/
 *.py[cod]
 *.log
-node_modules
+node_modules/
 # Environment Variables
 .env
 
 
-.idea
+.idea/
 # Virtual Environment
 venv/
 
